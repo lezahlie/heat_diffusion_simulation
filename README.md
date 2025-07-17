@@ -107,6 +107,6 @@ python visualize_dataset.py \
 
 |  |
 |:---------:|
-| <img src="./images/heat_diffusion_mosaic_30_compare.png" alt="Heat Diffusion Input/Output, Mosaic Pattern, Seed #30" width="945"/> |
-| <img src="./images/heat_diffusion_perlin_923_compare.png" alt="Heat Diffusion Input/Output, Perlin Pattern, Seed #923" width="945"/> |
-|<img src="./images/heat_diffusion_mixed_517_compare.png" alt="Heat Diffusion Input/Output, Mixed Pattern, Seed #517" width="945"/> |
+| <img src="./images/heat_diffusion_mosaic_30_compare.png" alt="Heat Diffusion Input/Output, Mosaic Pattern, Seed #30" width="950"/> |
+| <img src="./images/heat_diffusion_perlin_923_compare.png" alt="Heat Diffusion Input/Output, Perlin Pattern, Seed #923" width="950"/> |
+|<img src="./images/heat_diffusion_mixed_517_compare.png" alt="Heat Diffusion Input/Output, Mixed Pattern, Seed #517" width="950"/> |
