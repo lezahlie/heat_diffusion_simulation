@@ -1,0 +1,14 @@
+name: heat_sim
+prefix: ${CONDA_BASE}/envs/heat_sim
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytest
+  - h5py
+  - numpy
+  - pandas
+  - matplotlib
+  - scipy
+
