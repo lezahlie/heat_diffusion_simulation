@@ -89,24 +89,22 @@ python visualize_dataset.py \
 --data-file "heat_diffusion_dataset_1k/heat_diffusion_32x32_1-1000.hdf5" \
 --output-folder "heat_diffusion_dataset_1k/sample_viz" \
 --random-seed 42 \
---num-samples 10 \
+--num-samples 20 \
 --gif-fps 10 \
 --gif-delay 5 \
---gif-cmap "turbo" \
---image-cmap "coolwarm"
+--gif-cmap "coolwarm" \
+--image-cmap "turbo"
 ```
 
 
 ## Sample GIFs and Images
 
 
+<img src="./images/heat_diffusion_mosaic_30_states.gif" alt="Heat Diffusion States — Mosaic Pattern, Seed #30" width="300"/>
+<img src="./images/heat_diffusion_perlin_923_states.gif" alt="Heat Diffusion States — Perlin Pattern, Seed #923" width="300"/>
+<img src="./images/heat_diffusion_mixed_517_states.gif" alt="Heat Diffusion States — Mixed Pattern, Seed #517" width="300"/>
 
 
-<img src="./images/heat_diffusion_mosaic_264_states.gif" alt="Heat Diffusion States — Mosaic Pattern, Seed #264" width="300"/>
-<img src="./images/heat_diffusion_perlin_931_states.gif" alt="Heat Diffusion States — Perlin Pattern, Seed #931" width="300"/>
-<img src="./images/heat_diffusion_mixed_92_states.gif" alt="Heat Diffusion States — Mixed Pattern, Seed #92" width="300"/>
-
-
-<img src="./images/heat_diffusion_mosaic_264_compare.png" alt="Heat Diffusion Input/Output, Mosaic Pattern, Seed #264" width="909"/></br>
-<img src="./images/heat_diffusion_perlin_931_compare.png" alt="Heat Diffusion Input/Output, Perlin Pattern, Seed #931" width="909"/></br>
-<img src="./images/heat_diffusion_mixed_92_compare.png" alt="Heat Diffusion Input/Output, Mixed Pattern, Seed #92" width="909"/></br>
+<img src="./images/heat_diffusion_mosaic_30_compare.png" alt="Heat Diffusion Input/Output, Mosaic Pattern, Seed #30" width="909"/></br>
+<img src="./images/heat_diffusion_perlin_923_compare.png" alt="Heat Diffusion Input/Output, Perlin Pattern, Seed #923" width="909"/></br>
+<img src="./images/heat_diffusion_mixed_517_compare.png" alt="Heat Diffusion Input/Output, Mixed Pattern, Seed #517" width="909"/></br>

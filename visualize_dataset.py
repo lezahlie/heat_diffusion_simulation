@@ -146,7 +146,7 @@ def save_record_frames(
     cbar.ax.tick_params(labelsize=10)
     cbar.ax.yaxis.set_major_formatter(mtick.FormatStrFormatter("%.3g"))
 
-    title_text = ax.set_xlabel(fr"$t$ = {steps[0]}", fontsize=16, labelpad=20)
+    title_text = ax.set_xlabel(fr"$state$ = {steps[0]}", fontsize=16, labelpad=20)
 
 
     fig.tight_layout()
@@ -155,7 +155,7 @@ def save_record_frames(
         idx = frame_indices[i]
         img.set_data(frames[idx])
         img.set_norm(norm)
-        title_text.set_text(fr"$t$ = {steps[idx]}")
+        title_text.set_text(fr"$state$ = {steps[idx]}")
         return (img, title_text)
 
     fps2ms = 1000 / fps
@@ -190,7 +190,7 @@ def save_record_images(
 
     panels = [
         (
-            r"$X_1$: Thermal Diffusion $\alpha$",
+            r"$X_1$: Thermal Diffusivity $\alpha$",
             "diffusion_map",
             r"$\mathrm{\alpha}\; (\mathrm{m^2}/\mathrm{s})$",
             "plasma"
