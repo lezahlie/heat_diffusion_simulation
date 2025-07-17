@@ -1,10 +1,10 @@
 from setup_logger import setup_logger, set_logger_level
 logger = setup_logger(__file__, log_stdout=True, log_stderr=True)
 from utilities import (DATATYPE_NAME, DEFAULT_DATAFILE_EXT,
-                        List, Tuple, os_path, np, re, plt, mcolor, manimate, mtick,
+                        List, Tuple, Optional, 
+                        os_path, np, re, plt, mcolor, manimate, mtick,
                         read_from_hdf5, read_from_json, create_folder)
 from arguments import process_args
-from heat_mappers import MIN_TEMP_VALUE, MAX_TEMP_VALUE
 
 DEFAULT_FPS = 20
 DEFAULT_DELAY = 3
@@ -93,8 +93,9 @@ def save_record_frames(
     file_path: str,
     fps: int = DEFAULT_FPS,
     delay: int = DEFAULT_DELAY,
+    prefix: str = "temp",
     cmap: str = "turbo",
-    title: str = "Heat Diffusion",
+    title: str = "Heat Diffusion"
 ) -> None:
     """
     Create and save a GIF from a sequence of 2D frames.
@@ -121,23 +122,39 @@ def save_record_frames(
     hold_count = int(round(delay * fps))
     frame_indices = list(range(N)) + [N - 1] * hold_count
     total_frames = len(frame_indices)
-    
-    fig, ax = plt.subplots(figsize=(8, 8))
+
+    min_val = np.nanmin(frames)
+    max_val = np.nanmax(frames)
+    norm = mcolor.Normalize(vmin=min_val, vmax=max_val, clip=True)
+    cbar_ticks = np.linspace(min_val, max_val, 9)
+
+    fig, ax = plt.subplots(figsize=(8.5, 8))
     img = ax.imshow(
         frames[0],
-        cmap=cmap
+        cmap=cmap,
+        norm=norm
     )
-    title_text = ax.set_xlabel(fr"$t$ = {steps[0]}", fontsize=16, labelpad=20)
 
     ax.grid(False)
     ax.set_xticks([])
     ax.set_yticks([])
     fig.suptitle(title, fontsize=18)
+
+
+    cbar = plt.colorbar(img, ax=ax, fraction=0.046, pad=0.04, ticks=cbar_ticks)
+    cbar.set_label(r"$T\; ^\circ\mathrm{C}$", fontsize=14)
+    cbar.ax.tick_params(labelsize=10)
+    cbar.ax.yaxis.set_major_formatter(mtick.FormatStrFormatter("%.3g"))
+
+    title_text = ax.set_xlabel(fr"$t$ = {steps[0]}", fontsize=16, labelpad=20)
+
+
     fig.tight_layout()
     
     def _render(i: int):
         idx = frame_indices[i]
         img.set_data(frames[idx])
+        img.set_norm(norm)
         title_text.set_text(fr"$t$ = {steps[idx]}")
         return (img, title_text)
 
@@ -160,42 +177,33 @@ def save_record_images(
     record: dict,
     *,
     file_path: str,
+    prefix: str = "temp",
     cmap: str = "turbo",
     title: str = "Heat Diffusion",
-    prefix: str = "temp"
+    statistics:Optional[dict]=None
 ) -> None:
 
     image_dict = record["image"]
-    
-    heat_source = image_dict["source_map"]
-    diffusion_map = image_dict["diffusion_map"]
-
-    initial_state = image_dict[f"{prefix}_state_initial"]
-    final_state = image_dict[f"{prefix}_state_final"]
     total_iterations = record["meta"]["total_iterations"]
+    stats_dict = statistics.get('image', {}) if statistics else {}
 
-    min_val = min(initial_state.min(), final_state.min(), MIN_TEMP_VALUE)
-    max_val = max(initial_state.max(), final_state.max(), MAX_TEMP_VALUE)
 
     panels = [
         (
             r"$X_1$: Thermal Diffusion $\alpha$",
-            diffusion_map,
-            mcolor.Normalize(vmin=0.0, vmax=diffusion_map.max()),
+            "diffusion_map",
             r"$\mathrm{\alpha}\; (\mathrm{m^2}/\mathrm{s})$",
             "plasma"
         ),
         (
             r"$X_2$: Initial State $T_0$",
-            initial_state,
-            mcolor.Normalize(vmin=min_val, vmax=max_val),
+            f"{prefix}_state_initial",
             r"$T\; ^\circ\mathrm{C}$",
             cmap
         ),
         (
             fr"$Y$: Final State $T_{{{total_iterations}}}$",
-            final_state,
-            mcolor.Normalize(vmin=min_val, vmax=max_val),
+            f"{prefix}_state_final",
             r"$T\; ^\circ\mathrm{C}$",
             cmap
         ),
@@ -203,20 +211,32 @@ def save_record_images(
 
     num_cols=len(panels)
     fig, axes = plt.subplots(1, num_cols, figsize=(5.5*num_cols, 5))
-    norm = mcolor.LogNorm(vmin=max(final_state.min(), 1e-6), vmax=heat_source.max())
 
     # Each entry: (title, array, vmin, vmax, colormap)
-    for ax, (title_i, data, norm, unit_label, cmap_i) in zip(axes, panels):
-        im = ax.imshow(data, norm=norm, cmap=cmap_i, aspect='equal')
-        cbar = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-        cbar.set_label(unit_label, fontsize=14)
+    for ax, (title_i, key_i, label_i, cmap_i) in zip(axes, panels):
+        if key_i not in image_dict:
+            raise KeyError(f"image key '{key_i}' was not found in dataset")
+
+        img_i = image_dict[key_i]
+
+        stats_i = stats_dict.get(key_i, {})
+        min_val = stats_i.get('min', img_i.min())
+        max_val = stats_i.get('max', img_i.max())
+
+        im = ax.imshow(img_i, cmap=cmap_i, vmin=min_val, vmax=max_val, aspect='equal')
+
+        ticks = np.linspace(min_val, max_val, 6)
+        cbar = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04, ticks=ticks)
+
+        cbar.set_label(label_i, fontsize=14)
         cbar.ax.tick_params(labelsize=10)
-        cbar.ax.yaxis.set_major_formatter(mtick.FormatStrFormatter("%.4g"))
+        cbar.ax.yaxis.set_major_formatter(mtick.FormatStrFormatter("%.3g"))
+
         ax.set_title(title_i, fontsize=16)
         ax.axis("off")
  
-    fig.suptitle(title, fontsize=18)
-    plt.tight_layout()
+    fig.suptitle(title, fontsize=18, y=0.98)
+    plt.tight_layout(rect=[0, 0, 1, 0.97])
     fig.savefig(file_path)
     plt.close(fig)
 
@@ -256,24 +276,31 @@ def visualize_samples(args):
         meta_dict = record['meta']
         pattern = meta_dict['pattern_name']
         seed = meta_dict['random_seed']
-        title = f"{pattern.title().replace('_',' ')} — Seed #{seed}"
+        title = f"{pattern.title().replace('_',' ')} Pattern  — Seed #{seed}"
         file_prefix = f"{DATATYPE_NAME}_{pattern}_{seed}"
 
         image_path = os_path.join(output_folder,  f"{file_prefix}_compare.png")
-        save_record_images(record, statistics=global_statistics, title=rf"Substrate $U_t$ vs Activator $V_t$: {title}", cmap=image_cmap, file_path=image_path)
+        image_title = rf"Heat Diffusion ($X1, \;X2, \;Y$) — {title}"
+        save_record_images(
+            record, 
+            file_path=image_path,
+            title=image_title, 
+            cmap=image_cmap, 
+            statistics=global_statistics,
+        )
         logger.info(f"Saved test images → {image_path}")
 
         frames, steps = extract_record_frames(record, prefix=data_prefix)
-        gif_path = os_path.join(output_folder,  f"{file_prefix}_{data_prefix}.gif")
-        unit_label = r"$^\circ\mathrm{C}$"
-        gif_title = fr"T States ({unit_label}): {title}"
+        gif_path = os_path.join(output_folder,  f"{file_prefix}_states.gif")
+        gif_title = f"T States: {title}"
+
         save_record_frames(frames, 
                         steps, 
+                        file_path=gif_path,
                         fps=fps, 
                         delay=delay, 
                         title=gif_title, 
-                        cmap=gif_cmap, 
-                        file_path=gif_path)
+                        cmap=gif_cmap)
 
         logger.info(f"Saved test {data_prefix} gif → {gif_path}")
 

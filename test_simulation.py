@@ -72,20 +72,20 @@ def visualize_patterns(record, output_path):
     data_prefix = "temp"
 
     file_paths = []
-    # frames, steps = extract_record_frames(record, prefix=data_prefix)
-    # gif_path = os_path.join(output_path,  f"{file_prefix}_{data_prefix}_states.gif")
-    # unit_label = r"$^\circ\mathrm{C}$"
-    # gif_title = fr"T States ({unit_label}): {title}"
+    frames, steps = extract_record_frames(record, prefix=data_prefix)
+    gif_path = os_path.join(output_path,  f"{file_prefix}_{data_prefix}_states.gif")
+    unit_label = r"$^\circ\mathrm{C}$"
+    gif_title = fr"T States ({unit_label}): {title}"
 
-    # save_record_frames(frames, 
-    #                     steps, 
-    #                     fps=15, 
-    #                     delay=3, 
-    #                     cmap="turbo", 
-    #                     title=gif_title, 
-    #                     file_path=gif_path)
-    # logger.info(f"Saved test {data_prefix} gif → {gif_path}")
-    # file_paths.append(str(gif_path))
+    save_record_frames(frames, 
+                        steps, 
+                        fps=15, 
+                        delay=3, 
+                        cmap="coolwarm", 
+                        title=gif_title, 
+                        file_path=gif_path)
+    logger.info(f"Saved test {data_prefix} gif → {gif_path}")
+    file_paths.append(str(gif_path))
 
     image_path = os_path.join(output_path,  f"{file_prefix}_input_output.png")
 

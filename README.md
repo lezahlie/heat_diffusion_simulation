@@ -52,7 +52,7 @@ python create_dataset.py \
 --max-seed 1000 \
 --seed-step 100 \
 --ntasks 2 \
---convergence-tolerance 1e-5 \
+--convergence-tolerance 1e-4 \
 --max-iterations 5000 \
 --solver-name "crank_nicolson" \
 --boundary-condition "neumann" \
@@ -86,7 +86,7 @@ python create_dataset.py \
 
 ```bash
 python visualize_dataset.py \
---data-file "heat_diffusion_dataset_1k/heat_diffusion_64x64_1-1000.hdf5" \
+--data-file "heat_diffusion_dataset_1k/heat_diffusion_32x32_1-1000.hdf5" \
 --output-folder "heat_diffusion_dataset_1k/sample_viz" \
 --random-seed 42 \
 --num-samples 10 \
@@ -96,3 +96,17 @@ python visualize_dataset.py \
 --image-cmap "coolwarm"
 ```
 
+
+## Sample GIFs and Images
+
+
+
+
+<img src="./images/heat_diffusion_mosaic_264_states.gif" alt="Heat Diffusion States — Mosaic Pattern, Seed #264" width="300"/>
+<img src="./images/heat_diffusion_perlin_931_states.gif" alt="Heat Diffusion States — Perlin Pattern, Seed #931" width="300"/>
+<img src="./images/heat_diffusion_mixed_92_states.gif" alt="Heat Diffusion States — Mixed Pattern, Seed #92" width="300"/>
+
+
+<img src="./images/heat_diffusion_mosaic_264_compare.png" alt="Heat Diffusion Input/Output, Mosaic Pattern, Seed #264" width="909"/></br>
+<img src="./images/heat_diffusion_perlin_931_compare.png" alt="Heat Diffusion Input/Output, Perlin Pattern, Seed #931" width="909"/></br>
+<img src="./images/heat_diffusion_mixed_92_compare.png" alt="Heat Diffusion Input/Output, Mixed Pattern, Seed #92" width="909"/></br>
