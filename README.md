@@ -100,11 +100,13 @@ python visualize_dataset.py \
 ## Sample GIFs and Images
 
 
-<img src="./images/heat_diffusion_mosaic_30_states.gif" alt="Heat Diffusion States — Mosaic Pattern, Seed #30" width="300"/>
-<img src="./images/heat_diffusion_perlin_923_states.gif" alt="Heat Diffusion States — Perlin Pattern, Seed #923" width="300"/>
-<img src="./images/heat_diffusion_mixed_517_states.gif" alt="Heat Diffusion States — Mixed Pattern, Seed #517" width="300"/>
+|  |  |  |
+|:---:|:---:|:---:|
+| <img src="./images/heat_diffusion_mosaic_30_states.gif" alt="Heat Diffusion States — Mosaic Pattern, Seed #30" width="300"/> | <img src="./images/heat_diffusion_perlin_923_states.gif" alt="Heat Diffusion States — Perlin Pattern, Seed #923" width="300"/> | <img src="./images/heat_diffusion_mixed_517_states.gif" alt="Heat Diffusion States — Mixed Pattern, Seed #517" width="300"/> |
 
 
-<img src="./images/heat_diffusion_mosaic_30_compare.png" alt="Heat Diffusion Input/Output, Mosaic Pattern, Seed #30" width="909"/></br>
-<img src="./images/heat_diffusion_perlin_923_compare.png" alt="Heat Diffusion Input/Output, Perlin Pattern, Seed #923" width="909"/></br>
-<img src="./images/heat_diffusion_mixed_517_compare.png" alt="Heat Diffusion Input/Output, Mixed Pattern, Seed #517" width="909"/></br>
+|  |
+|:---------:|
+| <img src="./images/heat_diffusion_mosaic_30_compare.png" alt="Heat Diffusion Input/Output, Mosaic Pattern, Seed #30" width="945"/> |
+| <img src="./images/heat_diffusion_perlin_923_compare.png" alt="Heat Diffusion Input/Output, Perlin Pattern, Seed #923" width="945"/> |
+|<img src="./images/heat_diffusion_mixed_517_compare.png" alt="Heat Diffusion Input/Output, Mixed Pattern, Seed #517" width="945"/> |
