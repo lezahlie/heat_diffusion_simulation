@@ -186,11 +186,11 @@ def add_visualize_group(parser):
     group.add_argument('--gif-delay', dest='gif_delay', type=int, default=2,
         help="Delay seconds between loops for the output gif | default: 2")
 
-    group.add_argument('--gif-cmap', dest='gif_cmap', type=str, default='turbo',
-        help="Colormap for gif plots (perceptually uniform preferred)  | default: 'turbo'")
+    group.add_argument('--gif-cmap', dest='gif_cmap', type=str, default='RdYlBu_r',
+        help="Colormap for gif plots (perceptually uniform preferred)  | default: 'RdYlBu_r'")
 
-    group.add_argument('--image-cmap', dest='image_cmap', type=str, default='RdYlBu',
-        help="Colormap for static image plots (diverging preferred) | default: 'RdYlBu'")
+    group.add_argument('--image-cmap', dest='image_cmap', type=str, default='turbo',
+        help="Colormap for static image plots (diverging preferred) | default: 'turbo'")
 
 
 def check_visualize_args(args):

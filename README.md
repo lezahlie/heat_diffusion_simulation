@@ -79,8 +79,8 @@ python create_dataset.py \
 | `--output-folder`           | Directory where images and gifs will be saved (created if it doesn't exist)              | String (path to folder)        | **required**    |
 | `--gif-fps GIF_FPS`                 | Frames per second for gif playback                                            | Integer                        | `20`            |
 | `--gif-delay GIF_DELAY`                 | Delay seconds between gif playback loop                                          | Integer                        | `3`            |
-| `--gif-cmap CMAP`               | Colormap for gif plots, perceptually uniform preferred (Matplotlib-compatible)                            | String (e.g. `'turbo'`)      | `'turbo'`     |
-| `--image-cmap CMAP`               | Colormap for image plots, diverging preferred (Matplotlib-compatible)                            | String (e.g. `'seismic'`)      | `'seismic'`     |
+| `--gif-cmap CMAP`               | Colormap for gif plots, perceptually uniform preferred (Matplotlib-compatible)                            | String (e.g. `'RdYlBu_r'`)      | `'RdYlBu_r'`     |
+| `--image-cmap CMAP`               | Colormap for image plots, diverging preferred (Matplotlib-compatible)                            | String (e.g. `'turbo'`)      | `'turbo'`     |
 
 ### Example command
 
@@ -92,7 +92,7 @@ python visualize_dataset.py \
 --num-samples 20 \
 --gif-fps 10 \
 --gif-delay 5 \
---gif-cmap "coolwarm" \
+--gif-cmap "RdYlBu_r" \
 --image-cmap "turbo"
 ```
 
