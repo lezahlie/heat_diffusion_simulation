@@ -102,11 +102,11 @@ def add_simulation_group(parser):
     group.add_argument('--grid-length', dest='grid_length', type=int, default=32,
                             help="Length of one side of 2D grid | default: 32")
     
-    group.add_argument('--max-iterations', dest='max_iterations', type=int, default=1000,
-                            help="Maximum Euler integration steps | default: 1000")
+    group.add_argument('--max-iterations', dest='max_iterations', type=int, default=5000,
+                            help="Maximum Euler integration steps | default: 5000")
     
     group.add_argument('--convergence-tolerance', dest='convergence_tolerance', type=float, default=1e-4,
-                            help="convergence_tolerance value for determining convergence | default: 1e-4")
+                            help="Tolerance value for determining convergence | default: 1e-4")
     
     group.add_argument(
         "--solver-name",

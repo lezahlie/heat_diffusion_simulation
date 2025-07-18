@@ -33,8 +33,8 @@ python -m pytest
 | `--min-seed`                          | Start seed for generating simulations                              | Any positive integer (default: `1`)                                                        |
 | `--max-seed`                          | End seed for generating simulations                                | Any positive integer (default: `5`)                                                        |
 | `--grid-length`                       | Length of one side of 2D grid                                      | Any integer > 4 (default: `32`)                                                            |
-| `--convergence-tolerance`             | tolerance value for determining convergence                        | Any positive float (default: `1e-4`)                                                              |
-| `--max-iterations`                    | Maximum Euler integration steps                                    | Any integer (default: `1000`)                                                              |
+| `--convergence-tolerance`             | Tolerance value for determining convergence                        | Any positive float (default: `1e-4`)                                                              |
+| `--max-iterations`                    | Maximum Euler integration steps                                    | Any integer (default: `5000`)                                                              |
 | `--solver-name`                       | Which solver to use                                                | String options:<br>• `ftcs`<br>• `crank_nicolson`<br>• `backward_euler`<br>default: `crank_nicolson`                  |
 | `--boundary-condition`                | Which boundary condition to use                                    | String options:<br>• `dirichlet`<br>• `neumann`<br>• `periodic`<br>default: `neumann`                                    |
 | `--pattern-name`                      | Pattern for generating material maps                               | String options:<br>• `mosaic` <br>• `perlin` <br>• `mixed` <br>• `none` <br>default: `none` (random pattern)                            |
@@ -52,11 +52,9 @@ python create_dataset.py \
 --max-seed 1000 \
 --seed-step 100 \
 --ntasks 2 \
+--boundary-condition "neumann" \
 --convergence-tolerance 1e-4 \
 --max-iterations 5000 \
---solver-name "crank_nicolson" \
---boundary-condition "neumann" \
---pattern-name "none" \
 --save-states "first-20,interval-100"
 ```
 
