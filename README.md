@@ -5,7 +5,7 @@
 ```bash
 cd heat_diffusion_simulation
 conda env create -f environment.yaml
-conda activate heat_sim
+conda activate heat_env
 ```
 
 ### Notes
@@ -52,10 +52,12 @@ python create_dataset.py \
 --max-seed 1000 \
 --seed-step 100 \
 --ntasks 2 \
+--solver-name "crank_nicolson" \
 --boundary-condition "neumann" \
+--pattern-name "none" \
 --convergence-tolerance 1e-4 \
 --max-iterations 5000 \
---save-states "first-20,interval-100"
+--save-states "first-20,interval-10"
 ```
 
 > Each simulation run uses a unique seed in range [`--min-seed`, `--max-seed`]

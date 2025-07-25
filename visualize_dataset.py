@@ -4,6 +4,7 @@ from utilities import (DATATYPE_NAME, DEFAULT_DATAFILE_EXT,
                         List, Tuple, Optional, 
                         os_path, np, re, plt, mcolor, manimate, mtick,
                         read_from_hdf5, read_from_json, create_folder)
+from heat_mappers import MATERIAL_IDS
 from arguments import process_args
 
 DEFAULT_FPS = 20
@@ -189,6 +190,12 @@ def save_record_images(
 
 
     panels = [
+        # (
+        #     r"$Mask$: Heat Source $Q$",
+        #     "source_map",
+        #     r"$\mathrm{Q}\; (\mathrm{W}/\mathrm{m^3})$",
+        #     "inferno"
+        # ),
         (
             r"$X_1$: Thermal Diffusivity $\alpha$",
             "diffusion_map",
