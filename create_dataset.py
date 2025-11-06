@@ -43,7 +43,7 @@ def run_processes(task_data_paths, seed_range_per_task, seed_step, simulation_kw
     procs_list = []
     for i, (task_file, seed_range) in enumerate(zip(task_data_paths, seed_range_per_task)):
         p_args = [task_file, seed_range, seed_step, shared_data, shared_lock]  # Pass shared dict to each process
-        p = Process(target=process_image_maps, name=f"esp_simulation_p{i}", args=p_args, kwargs=simulation_kwargs)
+        p = Process(target=process_image_maps, name=f"heat_simulation_p{i}", args=p_args, kwargs=simulation_kwargs)
         procs_list.append(p)
         p.start()
         logger.info(f"PID[{p.pid}]: child started running simulations for seeds {seed_range}")
